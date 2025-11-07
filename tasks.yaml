@@ -1,0 +1,69 @@
+research_exam_trends:
+  description: >
+    搜索2023-2025年上海市高中一年级物理考试题目，分析考试趋势、难度分布和常见考点。
+    重点关注位育中学的考试难度标准，收集相关的题目类型和知识点分布。
+  expected_output: >
+    一份详细的调研报告，包含：
+    1. 2023-2025年上海市高中一年级物理考试的主要趋势
+    2. 常见考点和题目类型分析
+    3. 位育中学考试难度标准的分析
+    4. 适合改编的经典题目示例
+  agent: exam_researcher
+
+generate_exam_questions:
+  description: >
+    基于调研结果，生成20道符合上海市高中一年级上半学期物理课程要求的简答题。
+    题目难度应符合位育中学的标准，涵盖力学、热学、光学等主要知识点。
+    每道题目应该清晰明确，考察学生对物理概念的理解和应用能力。
+  expected_output: >
+    包含20道物理简答题的试卷内容，每道题目包括：
+    1. 题目编号
+    2. 题目内容
+    3. 考察的知识点
+    4. 预估难度等级
+  agent: question_generator
+  context:
+    - research_exam_trends
+
+generate_answer_key:
+  description: >
+    为生成的20道物理题目编写详细的答案和解析。
+    每道题目的答案应该包括：
+    1. 正确答案
+    2. 详细的解题步骤
+    3. 关键知识点说明
+    4. 易错点分析
+    5. 评分标准建议
+  expected_output: >
+    完整的答案文档，包含20道题目的详细解答和解析。
+  agent: answer_generator
+  context:
+    - generate_exam_questions
+
+create_exam_pdf:
+  description: >
+    将生成的试卷内容整理成专业的PDF文档格式。
+    试卷应该包含：
+    1. 试卷标题和基本信息
+    2. 20道简答题的完整内容
+    3. 清晰的格式和排版
+    4. 适当的留白和答题空间
+  expected_output: >
+    一份专业的PDF格式物理试卷文档
+  agent: pdf_generator
+  context:
+    - generate_exam_questions
+
+create_answer_pdf:
+  description: >
+    将生成的答案内容整理成专业的PDF文档格式。
+    答案文档应该包含：
+    1. 答案文档标题
+    2. 20道题目的详细解答和解析
+    3. 清晰的格式和排版
+    4. 便于教师参考的评分标准
+  expected_output: >
+    一份专业的PDF格式答案文档
+  agent: pdf_generator
+  context:
+    - generate_answer_key
